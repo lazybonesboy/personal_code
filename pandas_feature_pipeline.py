@@ -12,10 +12,11 @@ def one_list_column_to_mutiply_columns(df, columns= []):
             continue
         column_size = len(list(df[column][0]))
         if(column_size>0):
+            df[column] = df[column].apply(lambda x: [] if x is None else x)
             bias_column = [ column + '_' + str(i) for i in range(column_size)]
             df = df.drop(column, axis=1).join(pd.DataFrame(list(df[column]), columns= bias_column))
     return df
 
 a = one_list_column_to_mutiply_columns(a, a.columns)
-
+a = a.fillna(0)
 print(a)
