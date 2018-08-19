@@ -10,7 +10,7 @@ def one_list_column_to_mutiply_columns(df, columns= []):
     for column in columns:
         if type(df[column][0]) != list:
             continue
-        column_size = len(list(df[column][0]))
+        column_size = len(list(df[column].dropna()[0]))
         if(column_size>0):
             df[column] = df[column].apply(lambda x: [] if x is None else x)
             bias_column = [ column + '_' + str(i) for i in range(column_size)]
